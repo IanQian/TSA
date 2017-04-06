@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection" />
+            <!-- Bootstrap Styles-->
+            <link href="assets/css/bootstrap.css" rel="stylesheet" />
+            <!-- FontAwesome Styles-->
+            <link href="assets/css/font-awesome.css" rel="stylesheet" />
+            <!-- Morris Chart Styles-->
+            <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+            <!-- Custom Styles-->
+            <link href="assets/css/custom-styles.css" rel="stylesheet" />
+            <!-- Google Fonts-->
+
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+            <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css"> 
+                </head>
+                <body  onload="load1()">
+                    <div id="wrapper">
+                        <nav class="navbar navbar-default top-navbar" role="navigation">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand waves-effect waves-dark" href="index.html"><i class="large material-icons">insert_chart</i>  <strong>TSA</strong></a>
+
+                                <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+                            </div>
+
+
+                        </nav>
+
+                        <!--/. NAV TOP  -->
+                        <nav class="navbar-default navbar-side" role="navigation">
+                            <div class="sidebar-collapse">
+                                <ul class="nav" id="main-menu">
+
+                                    <li>
+                                        <a  href="index.html" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="file_input.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> File Input</a>
+                                    </li>
+                                    <li>
+                                        <a href="chart.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> General Performance</a>
+                                    </li>
+                                    <li>
+                                        <a class="active-menu waves-effect waves-dark"href="specific_perf.html" ><i class="fa fa-bar-chart-o"></i> Specific Performance</a>
+                                    </li>
+
+
+                                </ul>
+
+                            </div>
+
+                        </nav>
+                        <!-- /. NAV SIDE  -->
+                        <div id="page-wrapper">
+                            <div class="header"> 
+                                <h1 class="page-header">
+                                    Specific Performance 
+                                </h1>
+                                <ol class="breadcrumb">
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Specific Performance</a></li>
+
+                                </ol> 
+
+                            </div>
+                            <div id="page-inner"> 
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="card">
+                                            <div class="card-action">
+                                                Sentence Table
+                                            </div>
+                                            <div class="card-content">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="35%">Source</th>
+                                                                <th width="35%">Target</th>
+                                                                <th width="10%">BLEU of System1</th>
+                                                                <th width="10%">BLEU of System2</th>
+                                                                <th width="5%" >Figure1</th>
+                                                                <th width="5%" >Figure2</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody id="tablecon">
+                                                        </tbody>
+                                                        <!--<tbody >
+                                                            <tr >
+                                                                <td>I am a man</td>
+                                                                <td>我是男人</td>
+                                                                <td class="center">38</td>
+                                                                <td class="center">36</td>
+                                                                <td><a href>More</a></td>
+                                                            </tr>
+                                                            <tr >
+                                                                 <td>I am a student</td>
+                                                                <td>我是学生</td>
+                                                                <td class="center">30</td>
+                                                                <td class="center">31</td>
+                                                                <td><a href>More</a></td>
+                                                            </tr>
+                                                            <tr >
+                                                               <td>I am a woman</td>
+                                                                <td>我是女人</td>
+                                                                <td class="center">35</td>
+                                                                <td class="center">39</td>
+                                                                <td><a href>More</a></td>
+                                                            </tr>
+                                            </tbody>-->
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                </div><!--Div row-->
+                                <!-- /. PAGE INNER  -->
+                            </div>
+                            <!-- /. PAGE WRAPPER  -->
+                        </div>
+                    </div>
+
+                    <!-- /. WRAPPER  -->
+                    <!-- JS Scripts-->
+                    <!-- JS Scripts-->
+                    <script type="text/javascript">
+
+
+                        function load1() {
+
+                            //$(document).ready(function() {alert("ok");
+                            $.ajax({
+
+                                //请求方式；
+                                type: "get",
+                                //json文件；
+                                url: "data/sentence.json",
+                                //返回数据类型；
+                                dataType: "json",
+                                //回调方法；
+                                success: function (data) {
+
+                                    var show = $("#tablecon");
+                                    var strHtml = "";//存储数据的变量  
+                                    show.empty();//清空内容  
+
+                                    var i = 1;
+                                    $.each(data, function (infoIndex, n) {
+                                        //    for(i=0;i<this.length;i++){
+                                        strHtml += "<tr>";
+                                        strHtml += "<td>" + n["source"] + "</td>";
+                                        strHtml += "<td>" + n["target"] + "</td>";
+                                        strHtml += "<td>" + n["score1"] + "</td>";
+                                        strHtml += "<td>" + n["score2"] + "</td>";
+                                        strHtml += "<td><a href='figure.html?line=" + i +"-1' target='_blank' >" + "more" + "</a></td>";
+                                        strHtml += "<td><a href='figure.html?line=" + i +"-2' target='_blank' >" + "more" + "</a></td>";
+                                        strHtml += "</tr>";
+                                        i++;
+                                        //  }
+                                    });
+
+                                    show.html(strHtml);//显示处理后的数据   
+                                    $('#dataTables-example').dataTable();
+                                }
+                            });
+
+                            //      });
+                        }
+                    </script>
+
+                    <!-- jQuery Js -->
+                    <script src="assets/js/jquery-1.10.2.js"></script>
+
+                    <!-- Bootstrap Js -->
+                    <script src="assets/js/bootstrap.min.js"></script>
+
+                    <script src="assets/materialize/js/materialize.min.js"></script>
+
+                    <!-- Metis Menu Js -->
+                    <script src="assets/js/jquery.metisMenu.js"></script> 
+                    <!-- DATA TABLE SCRIPTS -->
+                    <!-- DATA TABLE SCRIPTS -->
+                    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+                    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+
+                    <script src="assets/js/custom-scripts.js"></script> 
+
+
+
+                </body>
+
+                </html>
